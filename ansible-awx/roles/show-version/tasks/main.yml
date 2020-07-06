@@ -1,8 +1,0 @@
----
-- name: Dump Current State of IOS Device
-  vars:
-    ansible_command_timeout: 60
-  ios_command:
-    commands:
-      - show ip interface brief
-      - show version
