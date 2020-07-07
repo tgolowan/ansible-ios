@@ -1,6 +1,6 @@
 ---
 - name: SHOW VERSION
-  hosts: all
+  hosts: "routers"
   gather_facts: false
   connection: network_cli
 
