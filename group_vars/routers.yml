@@ -1,3 +1,5 @@
 ---
 
+ansible_ssh_user: root  
+ansible_ssh_pass: DAfg123$
 ansible_network_os: ios
