@@ -1,11 +1,10 @@
 ---
 
 - hosts: all
-  connection: local
+  connection: network_cli
   gather_facts: false
   tasks:
   - name: run show version on remote devices
     ios_command:
       commands: show version
-    provider:
-      timeout: 120
+    
