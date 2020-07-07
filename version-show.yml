@@ -1,5 +1,4 @@
 ---
-
 - name: SHOW VERSION
   hosts: routers
   gather_facts: false
