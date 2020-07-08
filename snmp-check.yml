@@ -5,7 +5,7 @@
   gather_facts: false
   tasks:
     - snmp_facts:
-        host: all
+        #host: all
         version: v2c
         community: public
     delegate_to: local
