@@ -8,4 +8,4 @@
         #host: all
         version: v2c
         community: public
-    delegate_to: local
+    #delegate_to: local
