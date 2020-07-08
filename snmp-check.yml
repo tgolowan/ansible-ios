@@ -1,6 +1,6 @@
 ---
 # Gather facts with SNMP version 2
-- hosts: "router"
+- hosts: all
   connection: network_cli
   gather_facts: false
   tasks:
