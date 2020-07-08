@@ -1,7 +1,11 @@
 ---
 # Gather facts with SNMP version 2
-- snmp_facts:
-    host: all
-    version: v2c
-    community: public
-  delegate_to: local
+- hosts: "router"
+  connection: network_cli
+  gather_facts: false
+  tasks:
+    - snmp_facts:
+        host: all
+        version: v2c
+        community: public
+    delegate_to: local
