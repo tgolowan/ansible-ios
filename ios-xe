@@ -1,0 +1,680 @@
+---
+- name: Pre-Checks for XE
+  hosts: xe
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: show version
+      ios_command:
+        commands:
+          - show version
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: save output to a file
+      copy: content="{{'\n########\n show version\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n') }}" dest="./prechecks_XE/{{ inventory_hostname }}.txt"
+
+#####################################################################################################
+
+    - name: show platform
+      ios_command:
+        commands:
+          - show platform
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show platform\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show standby brief
+      ios_command:
+        commands:
+          - show standby brief
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show standby brief \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+
+#####################################################################################################
+
+    - name: show standby
+      ios_command:
+        commands:
+          - show standby
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show standby\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show cdp neighbors
+      ios_command:
+        commands:
+          - show cdp neighbors
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show cdp neighbors \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show cdp neighbors detail
+      ios_command:
+        commands:
+          - show cdp neighbors detail
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show cdp neighbors detail \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+    - name: show proc cpu history
+      ios_command:
+        commands:
+          - show proc cpu history
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show proc cpu history \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show proc cpu sorted
+      ios_command:
+        commands:
+          - show proc cpu sorted
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show proc cpu sorted \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show redundancy
+      ios_command:
+        commands:
+          - show redundancy
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show redundancy\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+
+    - name: show run
+      ios_command:
+        commands:
+          - show run
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show run\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show logging
+      ios_command:
+        commands:
+          - show log
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show log \n********\n\n' + print_output.stdout|join('\n\n==========!(Interfaces)==================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show ip interface brief
+      ios_command:
+        commands:
+          - show ip interface brief
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show ip interface brief | in Prefix-SID\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show vlans
+      ios_command:
+        commands:
+          - show vlans
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show vlans \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show etherchannel summary
+      ios_command:
+        commands:
+          - show etherchannel summary
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show etherchannel summary \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show interfaces summary
+      ios_command:
+        commands:
+          - show interfaces summary
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show interfaces summary \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show interfaces
+      ios_command:
+        commands:
+          - show interfaces
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show interfaces \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show int | in rx| protocol| minute
+      ios_command:
+        commands:
+          - show int | in rx| protocol| minute
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show int | in rx| protocol| minute \n********\n\n' + print_output.stdout|join('\n\n===============!(ISIS)====================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show ip route summary
+      ios_command:
+        commands:
+          - show ip route summary
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show ip route summary \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show isis neighbors
+      ios_command:
+        commands:
+          - show isis neighbors
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show isis neighbors \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show isis database
+      ios_command:
+        commands:
+          - show isis database
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show isis database \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show isis database detail
+      ios_command:
+        commands:
+          - show isis database detail
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show isis database detail \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show ip route isis
+      ios_command:
+        commands:
+          - show ip route isis
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show ip route isis \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show isis neighbors detail
+      ios_command:
+        commands:
+          - show isis neighbors detail
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show isis neighbors detail \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show isis topology
+      ios_command:
+        commands:
+          - show isis topology
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show isis topology \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show isis database verbose | in Prefix-SID
+      ios_command:
+        commands:
+          - show isis database verbose | in Prefix-SID
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show isis database verbose | in Prefix-SID\n********\n\n' + print_output.stdout|join('\n\n================!(SR)=====================\n\n')}}"
+        insertafter: EOF
+#####################################################################################################
+
+    - name: show isis fast-reroute summary
+      ios_command:
+        commands:
+          - show isis fast-reroute summary
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show isis fast-reroute summary \n********\n\n' + print_output.stdout|join('\n\n================!(SR)=====================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show segment-routing mpls connected-prefix-sid-map ipv4
+      ios_command:
+        commands:
+          - show segment-routing mpls connected-prefix-sid-map ipv4
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show segment-routing mpls connected-prefix-sid-map ipv4 \n********\n\n' + print_output.stdout|join('\n\n===================!(BGP)===================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show ip bgp summary
+      ios_command:
+        commands:
+          - show ip bgp summary
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show ip bgp summary \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show bgp all summary
+      ios_command:
+        commands:
+          - show bgp all summary
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show bgp all summary\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show bgp vpnv4 unicast all summary
+      ios_command:
+        commands:
+          - show bgp vpnv4 unicast all summary
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show bgp vpnv4 unicast all summary \n********\n\n' + print_output.stdout|join('\n\n==============!(MPLS)================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show mpls ldp neighbor
+      ios_command:
+        commands:
+          - show mpls ldp neighbor
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show mpls ldp neighbor \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show mpls forwarding
+      ios_command:
+        commands:
+          - show mpls forwarding
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show mpls forwarding \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show mpls ldp bindings
+      ios_command:
+        commands:
+          - show mpls ldp bindings
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show mpls ldp bindings \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show mpls ldp discovery
+      ios_command:
+        commands:
+          - show mpls ldp discovery
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show mpls ldp discovery \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show mpls label range
+      ios_command:
+        commands:
+          - show mpls label range
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show mpls label range \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show mpls forwarding | in ^1[6-9][0-9][0-9][0-9]|^2[0-3][0-9][0-9][0-9]
+      ios_command:
+        commands:
+          - show mpls forwarding | in ^1[6-9][0-9][0-9][0-9]|^2[0-3][0-9][0-9][0-9]
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show mpls forwarding | in ^1[6-9][0-9][0-9][0-9]|^2[0-3][0-9][0-9][0-9]  \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show l2vpn service all
+      ios_command:
+        commands:
+          - show l2vpn service all
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show l2vpn service all  \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show xconnect all
+      ios_command:
+        commands:
+          - show xconnect all
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show xconnect all  \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show bfd neighbor
+      ios_command:
+        commands:
+          - show bfd neighbor
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show bfd neighbor\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show bfd summary
+      ios_command:
+        commands:
+          - show bfd summary
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show bfd summary \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show bfd neighbors details
+      ios_command:
+        commands:
+          - show bfd neighbors details
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show bfd neighbors details\n********\n\n' + print_output.stdout|join('\n\n=================!(DOWN EVENTS)=================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show ip int br | in down
+      ios_command:
+        commands:
+          - show ip int br | in down
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show ip int br | in down \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show etherchannel summary | in D
+      ios_command:
+        commands:
+          - show etherchannel summary | in D
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show etherchannel summary | in D \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show bgp all sum | in "Idle|Active"
+      ios_command:
+        commands:
+          - show bgp all sum | in "Idle|Active"
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show bgp all sum | in Idle|Active \n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+#####################################################################################################
+
+    - name: show bfd neighbor | in DOWN
+      ios_command:
+        commands:
+          - show bfd neighbor | in DOWN
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show bfd neighbor | in DOWN\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
+
+
+prechecks_ios_XE.yml
+Displaying prechecks_ios_XE.yml.
