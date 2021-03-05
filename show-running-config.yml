@@ -7,6 +7,6 @@
   - name: show running config
     ios_command:
       commands: show running-config
-    register: sh-run
+    register: show running-config
   
-  - debug: msg="{{ show-run.stdout}}"
+  - debug: msg="{{ show running-config.stdout}}"
