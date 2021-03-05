@@ -7,8 +7,10 @@
   - name: show running config
     ios_command:
       commands: show running-config
-    register: Print_output
-  
-  - debug: msg="{{ Print_output.stdout}}"
-  - name: save output to a file
-      copy: content="{{'\n########\n show running-config\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}" 
+    register: print_output
+    - debug: var=print_output.stdout_lines
+    - name: Append block
+      lineinfile:
+        dest: ./prechecks_XE/{{ inventory_hostname }}.txt
+        line: "{{'\n########\n show run\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
+        insertafter: EOF
