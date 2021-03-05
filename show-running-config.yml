@@ -8,7 +8,7 @@
     ios_command:
       commands: show running-config
     register: print_output
-    - debug: var=print_output.stdout_lines
+    -  debug: var=print_output.stdout_lines
     - name: Append block
       lineinfile:
         dest: ./prechecks_XE/{{ inventory_hostname }}.txt
