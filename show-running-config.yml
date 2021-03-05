@@ -1,0 +1,12 @@
+---
+- hosts: all
+  gather_facts: no
+  connection: local
+  
+  tasks:
+  - name: show running config
+    ios_command:
+      commands: show running-config
+    register: sh-run
+  
+  - debug: msg="{{ show-run.stdout}}"
