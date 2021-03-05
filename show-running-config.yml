@@ -11,4 +11,4 @@
   
   - debug: msg="{{ Print_output.stdout}}"
   - name: save output to a file
-      copy: content="{{'\n########\n show running-config\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n') }}" dest="./prechecks_XE/{{ inventory_hostname }}.txt"
+      copy: content="{{ '\n########\n show running-config\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n') }}" dest="./prechecks_XE/{{ inventory_hostname }}.txt"
