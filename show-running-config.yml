@@ -8,8 +8,8 @@
     ios_command:
       commands: show running-config
     register: print_output
-    -  debug: var=print_output.stdout_lines
-    - name: Append block
+   -  debug: var=print_output.stdout_lines
+   - name: Append block
       lineinfile:
         dest: ./prechecks_XE/{{ inventory_hostname }}.txt
         line: "{{'\n########\n show run\n********\n\n' + print_output.stdout|join('\n\n============================================\n\n')}}"
